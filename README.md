@@ -12,7 +12,7 @@ $$
 \text{CH}_3\text{COOC}_2\text{H}_5 + \text{NaOH} \rightarrow \text{CH}_3\text{COONa} + \text{C}_2\text{H}_5\text{OH}
 $$
 
-This is modeled as an **elementary, second-order irreversible reaction**:
+This is modeled as an elementary, second-order irreversible reaction:
 
 $$
 r_A = A \, e^{-\frac{E_A}{R T}} \, C_A \, C_B
@@ -86,7 +86,7 @@ where $h_i$ is the convective heat transfer coefficient inside the reactor, $h_o
 $\Delta H_{Rx}(T)$ is calculated using a reference enthalpy of reaction at $298$ $K$, a reference constant-pressure heat capacity assumed to be constant $(C_P)$, and the temperature difference between the reactants and the reference temperature $(T-298$ $K)$:
 
 $$
-\Delta{H_{Rx}}=\Delta H_{Rx,298 \,K}C_P(T-298K)
+\Delta{H_{Rx}}=\Delta H_{Rx,298 K}C_P(T-298K)
 $$
 
 This model assumes constant density. Heat losses other than wall conduction/convection are assumed to be negligible.
@@ -157,10 +157,10 @@ $$
 $$
 
 $$
-20\,421\leq E_A \leq 34\,035 \,\,\,\,\frac{J}{mol} \,\,\,\,\cup\,\,\,\,45\,380\,\,\,\,\frac{J}{mol}
+20421\leq E_A \leq 34035 \frac{J}{mol} \cup 45380\frac{J}{mol}
 $$
 
-Note, the simulation will determine whether to randomize the activation energy, simulating a catalyzed reaction. If catalyzed, the activation energy will range between $0.45E_{A,\,uncatalyzed}\leq E_{A,\,catalyzed} \leq 0.75E_{A,\,uncatalyzed}$
+Note, the simulation will determine whether to randomize the activation energy, simulating a catalyzed reaction. If catalyzed, the activation energy will range between $0.45E_{A,uncatalyzed}\leq E_{A,catalyzed} \leq 0.75E_{A,uncatalyzed}$
 
 
 
@@ -168,26 +168,32 @@ If catalyzed, the activation energy is quantized in increments of $0.001E_{A,\,u
 
 ---
 
-## ODE Solver File Structure
+## File Structure
 
-`.
-├── file_manager.py
-├── main.py
-├── reaction_parameters.py
-├── README.md
-└── requirements.txt`
-
----
-
-## Generated Data File Structure
-
-`├── logs
+```
+.
+├── incoming
+│   └── 2025-10-22
+│       ├── metadata_34607759-a0d8-422c-bce2-3d48eca1919f.json
+│       ├── metadata_bbce830f-1bec-47f1-963e-3442e012a39f.json
+│       ├── results_34607759-a0d8-422c-bce2-3d48eca1919f.csv
+│       └── results_bbce830f-1bec-47f1-963e-3442e012a39f.csv
+├── logs
+│   ├── run_reaction_simulation.sh
 │   ├── sim.err
 │   └── sim.log
-├── incoming
-│   ├── YYYY-mm-dd
-│   │   ├── results_<uuid>.csv
-│   │   ├── metadata_<uuid>.json`
+└── src
+    └── generator
+        ├── file_manager.py
+        ├── main.py
+        ├── __pycache__
+        ├── reaction_parameters.py
+        ├── README.md
+        ├── requirements.txt
+        └── run_reaction_simulation.sh
+```
+
+
 
 ---
 
