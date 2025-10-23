@@ -15,7 +15,7 @@ $$
 This is modeled as an elementary, second-order irreversible reaction:
 
 $$
-r_A = A \, e^{-\frac{E_A}{R T}} \, C_A \, C_B
+r_A = A  e^{-\frac{E_A}{R T}}  C_A  C_B
 $$
 
 ---
@@ -49,7 +49,7 @@ $$
 We assume the following pre-exponential factor:
 
 $$
-A = \frac{10 * 10^6}{1000} \frac{m^3}{mol * s}
+A = \frac{10 \cdot 10^6}{1000} \frac{m^3}{mol \cdot s}
 $$
 
 Borovinskaya, E.; Khaydarov, V.; Strehle, N.; Musaev, A.; Reschetilowski, W. Experimental Studies of Ethyl Acetate Saponification Using Different Reactor Systems: The Effect of Volume Flow Rate on Reactor Performance and Pressure Drop. *Appl. Sci.* **2019**, *9*, 532. https://doi.org/10.3390/app9030532 
@@ -95,22 +95,22 @@ This model assumes constant density. Heat losses other than wall conduction/conv
 
 ## Key Parameters
 
-| Parameter                                     | Symbol              | Value               | Units        | Description                     |
-|:--------------------------------------------- |:------------------- |:------------------- |:------------ |:------------------------------- |
-| Gas constant                                  | $R$                 | 8.314               | J mol⁻¹ K⁻¹  | Ideal gas constant              |
-| Pre-exponential factor                        | $A$                 | \(1.0*10^7 / 1000\) | m³ mol⁻¹ s⁻¹ | Arrhenius prefactor             |
-| Activation energy                             | $E_A$               | 45 380              | J mol⁻¹      | From Borovinskaya et al. (2019) |
-| Enthalpy of reaction (reference)              | $\Delta H_{Rx,298}$ | −50 210             | J mol⁻¹      | From NIST and ANL ATcT          |
-| Density                                       | $\rho$              | 1050                | kg m⁻³       | Approx. water-like solution     |
-| Heat capacity (constant pressure)             | $C_P$               | 4100                | J kg⁻¹ K⁻¹   | Assumed constant                |
-| Thermal conductivity                          | $k_c$               | 1.1                 | W m⁻¹ K⁻¹    | Reactor wall                    |
-| Interior convective heat transfer coefficient | $h_i$               | 500                 | W m⁻² K⁻¹    | Interior                        |
-| Exterior convective heat transfer coefficient | $h_o$               | 1000                | W m⁻² K⁻¹    | Exterior                        |
-| Coolant temperature                           | $T_{cool}$          | 295                 | K            | Jacket water                    |
-| Reactor diameter                              | —                   | 0.0635              | m            | Interior                        |
-| Reactor height                                | —                   | 0.316               | m            | Interior                        |
-| Wall thickness                                | —                   | 0.005               | m            | Steel wall                      |
-| Time step                                     | —                   | 0.5                 | s            | Integration step size           |
+| Parameter                                     | Symbol              | Value                        | Units                              | Description                     |
+|:--------------------------------------------- |:------------------- |:---------------------------- |:---------------------------------- |:------------------------------- |
+| Gas constant                                  | $R$                 | $8.314$                      | $\frac{J}{mol^{-1}\cdot K^{-1}}$   | Ideal gas constant              |
+| Pre-exponential factor                        | $A$                 | $\frac{1.0\cdot10^7} {1000}$ | $\frac{m^3}{mol^{-1}\cdot s^{-1}}$ | Arrhenius prefactor             |
+| Activation energy                             | $E_A$               | $45380$                      | $\frac{J}{mol^{-1}}$               | From Borovinskaya et al. (2019) |
+| Enthalpy of reaction (reference)              | $\Delta H_{Rx,298}$ | $-50210$                     | $\frac{J}{mol^{-1}}$               | From NIST and ANL ATcT          |
+| Density                                       | $\rho$              | $1050$                       | $\frac{kg}{m^3}$                   | Approx. water-like solution     |
+| Heat capacity (constant pressure)             | $C_P$               | $4100$                       | $\frac{J}{kg^{-1}\cdot K^{-1}}$    | Assumed constant                |
+| Thermal conductivity                          | $k_c$               | $1.1$                        | $\frac{W}{m^{-1}\cdot K^{-1}}$     | Reactor wall                    |
+| Interior convective heat transfer coefficient | $h_i$               | $500$                        | $\frac{W}{m^{-2}\cdot K^{-1}}$     | Interior                        |
+| Exterior convective heat transfer coefficient | $h_o$               | $1000$                       | $\frac{W}{m^{-2}\cdot K^{-1}}$     | Exterior                        |
+| Coolant temperature                           | $T_{cool}$          | $295$                        | $K$                                | Jacket water                    |
+| Reactor diameter                              | —                   | $0.0635$                     | $m$                                | Interior                        |
+| Reactor height                                | —                   | $0.316$                      | $m$                                | Interior                        |
+| Wall thickness                                | —                   | $0.005$                      | $m$                                | Steel wall                      |
+| Time step                                     | —                   | $0.5$                        | $s$                                | Integration step size           |
 
 ---
 
@@ -149,11 +149,11 @@ You may also run the simulation from the terminal with `path-to-project-root/run
 Running the simulation will generate random initial conditions in the following ranges:
 
 $$
-0 \leq C_A,C_B \leq 1500 \,\,\,\,\frac{mol}{m^3} 
+0 \leq C_A,C_B \leq 1500 \frac{mol}{m^3} 
 $$
 
 $$
-278\,K \leq T \leq 353\,K
+278K \leq T \leq 353K
 $$
 
 $$
@@ -164,7 +164,7 @@ Note, the simulation will determine whether to randomize the activation energy, 
 
 
 
-If catalyzed, the activation energy is quantized in increments of $0.001E_{A,\,uncatalyzed}$
+If catalyzed, the activation energy is quantized in increments of $0.001E_{A,uncatalyzed}$
 
 ---
 
@@ -192,8 +192,6 @@ If catalyzed, the activation energy is quantized in increments of $0.001E_{A,\,u
         ├── requirements.txt
         └── run_reaction_simulation.sh
 ```
-
-
 
 ---
 
