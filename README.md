@@ -24,6 +24,8 @@ $$
 
 ### Mole Balances
 
+The mole (material) balances are defined using the temperature-dependent Arrhenius equation and the concentrations of reactants $A$ and $B$.
+
 $$
 \frac{dC_A}{dt} = -r_A = -k_A(T)C_AC_B
 $$
@@ -52,6 +54,8 @@ $$
 
 Borovinskaya, E.; Khaydarov, V.; Strehle, N.; Musaev, A.; Reschetilowski, W. Experimental Studies of Ethyl Acetate Saponification Using Different Reactor Systems: The Effect of Volume Flow Rate on Reactor Performance and Pressure Drop. *Appl. Sci.* **2019**, *9*, 532. https://doi.org/10.3390/app9030532 
 
+This model assumes perfect mixing, allowing us to use the bulk concentrations of reactants.
+
 ### Energy Balance
 
 We begin with the unsteady state energy balance for a closed system:
@@ -67,7 +71,7 @@ We then substitute $\dot{Q}$ for $UA(T-T{cool})$, the overall heat transfer coef
 Finally, rearranging, we get the energy balance:
 
 $$
-\frac{dT}{dt} = -\frac{\frac{UA}{V} (T-T_{cool})\Delta H_{Rx}(T) r_A}{\rho C_P}
+\frac{dT}{dt} = -\frac{\frac{UA}{V} (T-T_{cool})\Delta H_{Rx}(T) \,r_A}{\rho C_P}
 $$
 
 
@@ -82,8 +86,10 @@ where $h_i$ is the convective heat transfer coefficient inside the reactor, $h_o
 $\Delta H_{Rx}(T)$ is calculated using a reference enthalpy of reaction at $298$ $K$, a reference constant-pressure heat capacity assumed to be constant $(C_P)$, and the temperature difference between the reactants and the reference temperature $(T-298$ $K)$:
 
 $$
-\Delta{H_{Rx}}=\Delta H_{Rx,298 K}C_P(T-298K)
+\Delta{H_{Rx}}=\Delta H_{Rx,298 \,K}C_P(T-298K)
 $$
+
+This model assumes constant density. Heat losses other than wall conduction/convection are assumed to be negligible.
 
 ---
 
@@ -130,6 +136,38 @@ $$
 
 ---
 
+## Running the Simulation
+
+The simulation can be run from the project root with `python main.py` .
+
+You may also run the simulation from the terminal with `path-to-project-root/run_reaction_simulation.sh`, but the script should be updated to match your file structure. Be sure to update `PROJECT_DIR` to the project directory in your file system, `PYTHON` with the path to a valid interpreter, `LOG_DIR` with where you would like shell simulation logs to be kept. If the paths above are updated, you can set this up to run as a cron job.
+
+---
+
+## Simulation Randomization
+
+Running the simulation will generate random initial conditions in the following ranges:
+
+$$
+0 \leq C_A,C_B \leq 1500 \,\,\,\,\frac{mol}{m^3} 
+$$
+
+$$
+278\,K \leq T \leq 353\,K
+$$
+
+$$
+20\,421\leq E_A \leq 34\,035 \,\,\,\,\frac{J}{mol} \,\,\,\,\cup\,\,\,\,45\,380\,\,\,\,\frac{J}{mol}
+$$
+
+Note, the simulation will determine whether to randomize the activation energy, simulating a catalyzed reaction. If catalyzed, the activation energy will range between $0.45E_{A,\,uncatalyzed}\leq E_{A,\,catalyzed} \leq 0.75E_{A,\,uncatalyzed}$
+
+
+
+If catalyzed, the activation energy is quantized in increments of $0.001E_{A,\,uncatalyzed}$
+
+---
+
 ## ODE Solver File Structure
 
 `.
@@ -144,7 +182,6 @@ $$
 ## Generated Data File Structure
 
 `├── logs
-│   ├── run_reaction_simulation.sh
 │   ├── sim.err
 │   └── sim.log
 ├── incoming
@@ -152,4 +189,27 @@ $$
 │   │   ├── results_<uuid>.csv
 │   │   ├── metadata_<uuid>.json`
 
+---
 
+## Output Data
+
+| Column         | Units             | Description                    |
+| -------------- | ----------------- | ------------------------------ |
+| `CA (mol/m^3)` | $\frac{mol}{m^3}$ | Ethyl acetate concentration    |
+| `CB (mol/m^3)` | $\frac{mol}{m^3}$ | Hydroxide ion concentration    |
+| `CC (mol/m^3)` | $\frac{mol}{m^3}$ | Acetate ion concentration      |
+| `CD (mol/m^3)` | $\frac{mol}{m^3}$ | Ethanol concentration          |
+| `T (K)`        | $K$               | Reactor temperature            |
+| `Tsensor (K)`  | K                 | Simulated thermocouple reading |
+| `t (sec)`      | $sec$             | Simulation time                |
+| `SimulationID` | -                 | UUID for traceability          |
+
+---
+
+## References
+
+- Borovinskaya, E.; Khaydarov, V.; Strehle, N.; Musaev, A.; Reschetilowski, W. Experimental Studies of Ethyl Acetate Saponification Using Different Reactor Systems: The Effect of Volume Flow Rate on Reactor Performance and Pressure Drop. *Appl. Sci.* **2019**, *9*, 532. https://doi.org/10.3390/app9030532
+
+- NIST Chemistry WebBook - Ethyl Acetate, Ethanol
+
+- Argonne National Laboratory, Active Thermochemical Tables - Acetate Ion, Hydroxide Ion
